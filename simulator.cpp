@@ -137,8 +137,13 @@ public:
 			broadcast(pq, miner.first, validatedNodes, numValidatedNodes, b);
 			time = max(time, (i+1)*blockInterval);
 		}
-
-		for(int i = 0; i < numBlocks; i++){
+		/*
+		for(int i = 0; i < numNodes; i++){
+			showpq(pq[i]);
+		}
+		*/
+		int cnt = numNodes*numBlocks;
+		while(cnt > 0){
 			vector< pair<int, int> > blocks;
 			map<int, int> mp;
 			int blockId = -1, maxOccurence = -1;
@@ -161,25 +166,46 @@ public:
 				}
 			}
 			for(int j = 0; j < numNodes; j++){
+				if(!pq[j].empty()){
+					Block b = pq[j].top();
+					if(b.getId() == blockId && !inBlockchain(b) && !isStale(b)){
+						blockchain.push_back(b);
+						break;
+					}
+				}
+			}
+			for(int j = 0; j < numNodes; j++){
 				if(pq[j].empty()){
 					continue;
 				}
 				Block b = pq[j].top();
 				if(isStale(b) || inBlockchain(b)){
 					pq[j].pop();
+					cnt--;
 					continue;
 				}
-				if(b.getTimeReceived()-0.001 <= maxTime){
+				if(b.getTimeReceived() <= maxTime){
 					pq[j].pop();
-					if(b.getId() != blockId && b.getMinerId() == j){
+					cnt--;
+					if(b.getMinerId() == j){
 						staleBlocks.push_back(b);
 					}
 				}
-				if(abs(maxTime - b.getTimeReceived()) < 0.001){
-					blockchain.push_back(b);
-				}
 			}
 		}
+		/*
+		cout << "\nBlockchain: " << "\n";
+		for(int i = 0; i < blockchain.size(); i++){
+			cout << blockchain[i].getId() << " " << blockchain[i].getMinerId() << "\n";
+		}
+
+		cout << "\nStale Blocks: " << "\n";
+		for(int i = 0; i < staleBlocks.size(); i++){
+			cout << staleBlocks[i].getId() << " " << staleBlocks[i].getMinerId() << "\n";
+		}
+		*/
+		cout << "\n# of blocks in main chain: " << blockchain.size() << "\n";
+		cout << "\n# of stale blocks: " << staleBlocks.size() << "\n";
 	}
 
 	bool broadcast(vector< priority_queue<Block, vector<Block>, myComparator> > &pq, int senderId, vector<int> &validatedNodes, int numValidatedNodes, Block block){

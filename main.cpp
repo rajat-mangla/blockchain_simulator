@@ -1,12 +1,13 @@
 #include "simulator.cpp"
 
 int main(){
-	int numNodes = 100;
-	int numMiners = 10;
-	int numBlocks = 1000;
-	int blockSize = 10;
+	int numNodes = 10;
+	int numMiners = 4;
+	int numBlocks = 100;
+	int blockSize = 100;
 	double blockInterval = 10;
-	/*cout << "Number of Nodes : ";
+	/*
+	cout << "Number of Nodes : ";
 	cin >> numNodes;
 	cout << "Number of Miners : ";
 	cin >> numMiners;
