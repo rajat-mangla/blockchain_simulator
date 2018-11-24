@@ -137,11 +137,11 @@ public:
 			broadcast(pq, miner.first, validatedNodes, numValidatedNodes, b);
 			time = max(time, (i+1)*blockInterval);
 		}
-		/*
+		
 		for(int i = 0; i < numNodes; i++){
 			showpq(pq[i]);
 		}
-		*/
+		
 		int cnt = numNodes*numBlocks;
 		while(cnt > 0){
 			vector< pair<int, int> > blocks;
@@ -193,19 +193,18 @@ public:
 				}
 			}
 		}
-		/*
-		cout << "\nBlockchain: " << "\n";
+		
+		cout << "\nBlockchain (Size = " << blockchain.size() << ")\n";
+		cout << "Block Id\tMiner Id\tTime Created\tRegion\n";
 		for(int i = 0; i < blockchain.size(); i++){
-			cout << blockchain[i].getId() << " " << blockchain[i].getMinerId() << "\n";
+			cout << blockchain[i].getId() << "\t\t" << blockchain[i].getMinerId() << "\t\t" << blockchain[i].getTimeCreated() << "\t\t" << regions[nodes[blockchain[i].getMinerId()].getRegionId()].getName() << "\n";
 		}
 
-		cout << "\nStale Blocks: " << "\n";
+		cout << "\nStale Blocks (Size = " << staleBlocks.size() << ")\n";
+		cout << "Block Id\tMiner Id\tTime Created\tRegion\n";
 		for(int i = 0; i < staleBlocks.size(); i++){
-			cout << staleBlocks[i].getId() << " " << staleBlocks[i].getMinerId() << "\n";
+			cout << staleBlocks[i].getId() << "\t\t" << staleBlocks[i].getMinerId() << "\t\t" << staleBlocks[i].getTimeCreated() << "\t\t" << regions[nodes[staleBlocks[i].getMinerId()].getRegionId()].getName() << "\n";
 		}
-		*/
-		cout << "\n# of blocks in main chain: " << blockchain.size() << "\n";
-		cout << "\n# of stale blocks: " << staleBlocks.size() << "\n";
 	}
 
 	bool broadcast(vector< priority_queue<Block, vector<Block>, myComparator> > &pq, int senderId, vector<int> &validatedNodes, int numValidatedNodes, Block block){

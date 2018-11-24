@@ -3,9 +3,9 @@
 int main(){
 	int numNodes = 10;
 	int numMiners = 4;
-	int numBlocks = 100;
-	int blockSize = 100;
-	double blockInterval = 10;
+	int numBlocks = 10;
+	int blockSize = 1000;
+	double blockInterval = 1;
 	/*
 	cout << "Number of Nodes : ";
 	cin >> numNodes;
