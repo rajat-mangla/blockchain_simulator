@@ -140,9 +140,9 @@ public:
 			time = max(time, (i+1)*blockInterval);
 		}
 
-		for(int i = 0; i < numNodes; i++){
+        /*for(int i = 0; i < numNodes; i++){
 			showpq(pq[i]);
-		}
+        }*/
 
 		int cnt = numNodes*numBlocks;
 		while(cnt > 0){
@@ -195,7 +195,8 @@ public:
 				}
 			}
 		}
-		/*
+        displayList(blockchain);
+        /*
 		cout << "\nBlockchain: " << "\n";
 		for(int i = 0; i < blockchain.size(); i++){
 			cout << blockchain[i].getId() << " " << blockchain[i].getMinerId() << "\n";

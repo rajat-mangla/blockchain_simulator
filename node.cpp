@@ -1,60 +1,49 @@
 #include <vector>
+#include "node.h"
 
-class Node{
-private:
-    static int totalNodes;
-    int id;
-    bool mining;
-    int regionId;
-    double downloadSpeed;
-    double uploadSpeed;
-    vector<int> connections;
+Node::Node(bool mining){
+    this->id = totalNodes++;
+    this->mining = mining;
+}
 
-public:
-    Node(bool mining = 0){
-        this->id = totalNodes++;
-        this->mining = mining;
-    }
+int Node::getId(){
+    return this->id;
+}
 
-    int getId(){
-        return this->id;
-    }
+bool Node::getMining(){
+    return this->mining;
+}
 
-    bool getMining(){
-        return this->mining;
-    }
+void Node::setRegionId(int regionId){
+    this->regionId = regionId;
+}
 
-    void setRegionId(int regionId){
-        this->regionId = regionId;
-    }
+int Node::getRegionId(){
+    return this->regionId;
+}
 
-    int getRegionId(){
-        return this->regionId;
-    }
+void Node::setDownloadSpeed(double downloadSpeed){
+    this->downloadSpeed = downloadSpeed;
+}
 
-    void setDownloadSpeed(double downloadSpeed){
-        this->downloadSpeed = downloadSpeed;
-    }
+double Node::getDownloadSpeed(){
+    return this->downloadSpeed;
+}
 
-    double getDownloadSpeed(){
-        return this->downloadSpeed;
-    }
+void Node::setUploadSpeed(double uploadSpeed){
+    this->uploadSpeed = uploadSpeed;
+}
 
-    void setUploadSpeed(double uploadSpeed){
-        this->uploadSpeed = uploadSpeed;
-    }
+double Node::getUploadSpeed(){
+    return this->uploadSpeed;
+}
 
-    double getUploadSpeed(){
-        return this->uploadSpeed;
-    }
+vector<int> Node::getConnections(){
+    return this->connections;
+}
 
-    vector<int> getConnections(){
-        return this->connections;
-    }
-
-    void addConnection(int id){
-        connections.push_back(id);
-    }
-};
+void Node::addConnection(int id){
+    connections.push_back(id);
+}
 
 int Node::totalNodes = 0;

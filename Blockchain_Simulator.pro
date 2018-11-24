@@ -19,14 +19,19 @@ SOURCES += main.cpp\
     region.cpp \
     node.cpp \
     data.cpp \
-    displaychain.cpp
+    displaychain.cpp \
+    blockinfo.cpp
 
 HEADERS  += mainwindow.h \
     displaychain.h \
     block.h \
-    main.h
+    main.h \
+    node.h \
+    region.h \
+    blockinfo.h
 
 FORMS    += mainwindow.ui \
-    displaychain.ui
+    displaychain.ui \
+    blockinfo.ui
 
 CONFIG += c++11
