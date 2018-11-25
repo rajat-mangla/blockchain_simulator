@@ -152,7 +152,7 @@ public:
 			}
 		}
 
-		for(int i = 0; i < numBlocks; i++){
+        /*for(int i = 0; i < numBlocks; i++){
 			cout << "Block " << inputBlocks[i].getId() << ":\n";
 			vector<Transaction> t = inputBlocks[i].getTransactions();
 			for(int j = 0; j < t.size(); j++){
@@ -168,7 +168,7 @@ public:
 			cout << dependency[i] << "\t";
 		}
 		cout << "\n";
-
+*/
 		vector< priority_queue<Block, vector<Block>, myComparator> > pq(numNodes);
 		int numValidatedNodes, numStaleBlocks = 0, indexx = 0;
 		map<int, bool> mpb;
@@ -252,14 +252,14 @@ public:
 			staleBlocks.clear();
 		}
 		
-		displayList(blockchain);
+        displayList(blockchain, regions, nodes);
 		
 		cout << "\nBlockchain" << "\n";
 		cout << "Block Id\tMiner Id\tTime Created\n";
 
-		for(int i = 0; i < blockchain.size(); i++){
+        /*for(int i = 0; i < blockchain.size(); i++){
 			cout << blockchain[i].getId() << "\t\t" << blockchain[i].getMinerId() << "\t\t" << blockchain[i].getTimeCreated() << "\n";
-		}
+        }*/
 
 		cout << "\nNumber of stale blocks are " << numStaleBlocks << "\n";
 	}
@@ -319,14 +319,14 @@ public:
 		return 1.0/power;
 	}
 
-	void showpq(priority_queue<Block, vector<Block>, myComparator> pq){
+    /*void showpq(priority_queue<Block, vector<Block>, myComparator> pq){
 	    while(!pq.empty()){
 	    	Block b = pq.top();
 	    	pq.pop();
 	        cout << setw(10) << b.getTimeReceived() << "(" << b.getId() << ")";
 	    }
 	    cout << '\n';
-	}
+    }*/
 
 	bool isStale(Block b){
 		for(int i = 0; i < staleBlocks.size(); i++){

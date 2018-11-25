@@ -24,7 +24,7 @@
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>200</y>
+      <y>210</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -37,7 +37,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>80</y>
+      <y>60</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -50,7 +50,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>80</y>
+      <y>60</y>
       <width>81</width>
       <height>21</height>
      </rect>
@@ -63,7 +63,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>110</y>
+      <y>90</y>
       <width>81</width>
       <height>21</height>
      </rect>
@@ -76,7 +76,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>110</y>
+      <y>90</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -89,7 +89,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>51</y>
+      <y>31</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -102,7 +102,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>50</y>
+      <y>30</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -115,7 +115,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>140</y>
+      <y>120</y>
       <width>81</width>
       <height>21</height>
      </rect>
@@ -128,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>140</y>
+      <y>120</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -144,9 +144,9 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>30</y>
-      <width>231</width>
-      <height>151</height>
+      <y>10</y>
+      <width>241</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -154,6 +154,35 @@
     </property>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="blockSize_2">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>150</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhDigitsOnly</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="blockInterval">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>150</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Block Interval</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <zorder>frame</zorder>
@@ -166,6 +195,8 @@
    <zorder>numBlocksLabel</zorder>
    <zorder>blockSize</zorder>
    <zorder>blockSizeLabel</zorder>
+   <zorder>blockSize_2</zorder>
+   <zorder>blockInterval</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

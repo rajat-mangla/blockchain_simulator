@@ -2,7 +2,7 @@
 #define MINERWIDGET_H
 
 #include <QWidget>
-
+using namespace std;
 namespace Ui {
 class minerWidget;
 }
@@ -15,6 +15,7 @@ public:
     explicit minerWidget(QWidget *parent = 0);
     ~minerWidget();
     void displayWidget(int minerId, int proportion);
+    void displayCountryWidget(string country, int proportion);
 
 private:
     Ui::minerWidget *ui;

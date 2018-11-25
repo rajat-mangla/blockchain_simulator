@@ -4,7 +4,8 @@
 #include <QWidget>
 #include <queue>
 #include "block.h"
-
+#include "region.h"
+#include "node.h"
 using namespace std;
 
 namespace Ui {
@@ -19,7 +20,7 @@ public:
     explicit displayChain(QWidget *parent = 0);
     ~displayChain();
     void displayBlockDetails(vector<Block> list);
-    void displayMinerDetails(vector<Block> list);
+    void displayMinerDetails(vector<Block> blockchain, vector<Region> regions, vector<Node> nodes);
 
 private:
     Ui::displayChain *ui;

@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include "simulator.cpp"
 #include "displaychain.h"
+#include "time.h"
+#include <iostream>
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,8 +20,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Simulate_clicked()
 {
-    int numNodes = 10;
-    int numMiners = 4;
+    clock_t tStart = clock();
+    int numNodes = 100;
+    int numMiners = 100;
     int numBlocks = 100;
     int blockSize = 100;
     double blockInterval = 10;
@@ -34,4 +38,6 @@ void MainWindow::on_Simulate_clicked()
     Simulator simulator(numNodes, numMiners, numBlocks, blockSize, blockInterval);
     this->close();
     simulator.run();
+
+    cout<<"\n Time taken: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC <<"\n";
 }

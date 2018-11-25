@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
-void displayList(vector<Block> list){
+void displayList(vector<Block> list, vector<Region> regions, vector<Node> nodes){
   chainList = new displayChain();
   chainList->show();
   chainList->displayBlockDetails(list);
-  chainList->displayMinerDetails(list);
+  chainList->displayMinerDetails(list, regions, nodes);
 }

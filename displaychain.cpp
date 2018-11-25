@@ -30,8 +30,9 @@ void displayChain::displayBlockDetails(vector<Block> list){
     }
 }
 
-void displayChain::displayMinerDetails(vector<Block> blockchain){
+void displayChain::displayMinerDetails(vector<Block> blockchain, vector<Region> regions, vector<Node> nodes){
     map<int, int> miners;
+    map<string, int> countries;
     int numNodes = blockchain.size();
     for (int i=0; i< numNodes; i++){
         Block b = blockchain[i];
@@ -48,6 +49,8 @@ void displayChain::displayMinerDetails(vector<Block> blockchain){
         int proportion = (it->second)*100;
         proportion = proportion/numNodes;
 
+        countries[regions[nodes[it->first].getRegionId()].getName()]+= proportion;
+
         minerWidget *customWidget = new minerWidget;
         customWidget->displayWidget(it->first, proportion);
 
@@ -59,4 +62,17 @@ void displayChain::displayMinerDetails(vector<Block> blockchain){
         ui->minersListWidget->setItemWidget(tempItem, customWidget);
     }
 
+    map<string,int>::iterator it2;
+    for (it2=countries.begin(); it2!=countries.end(); it2++){
+
+        minerWidget *customWidget = new minerWidget;
+        customWidget->displayCountryWidget(it2->first, it2->second);
+
+        QListWidgetItem* tempItem = new QListWidgetItem();
+
+        ui->regionListWidget->addItem(tempItem);
+
+        tempItem->setSizeHint(customWidget->size());
+        ui->regionListWidget->setItemWidget(tempItem, customWidget);
+    }
 }
