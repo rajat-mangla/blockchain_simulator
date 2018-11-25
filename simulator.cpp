@@ -10,9 +10,10 @@
 #include "displaychain.h"
 #include "main.h"
 #include <math.h>
+#include "time.h"
 using namespace std;
 
-#define TRANSACTION_SIZE 10
+#define TRANSACTION_SIZE 4
 
 class myComparator{
 public:
@@ -125,6 +126,7 @@ public:
 	}
 
 	void run(){
+        clock_t tStart = clock();
 		vector<Block> inputBlocks;
         int numTransactionsInBlock = ceil(1.0*blockSize/(TRANSACTION_SIZE*numBlocks));
 		for(int i = 0; i < numBlocks; i++){
@@ -252,8 +254,11 @@ public:
 			staleBlocks.clear();
 		}
 		
-        displayList(blockchain, regions, nodes);
-		
+
+        cout<<"\n Time taken: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC <<"\n";
+        displayListInfo(blockchain, regions, nodes);
+        displayOtherInfo(numStaleBlocks, (double)(clock() - tStart)/CLOCKS_PER_SEC, blockchain[blockchain.size()-1].getTimeReceived());
+
 		cout << "\nBlockchain" << "\n";
 		cout << "Block Id\tMiner Id\tTime Created\n";
 
@@ -261,10 +266,10 @@ public:
 			cout << blockchain[i].getId() << "\t\t" << blockchain[i].getMinerId() << "\t\t" << blockchain[i].getTimeCreated() << "\n";
         }*/
 
-		cout << "\nNumber of stale blocks are " << numStaleBlocks << "\n";
+        cout << "\nNumber of stale blocks are " << numStaleBlocks << "\n";
 	}
 
-	bool broadcast(vector< priority_queue<Block, vector<Block>, myComparator> > &pq, int senderId, vector<int> &validatedNodes, int numValidatedNodes, Block block){
+    bool broadcast(vector< priority_queue<Block, vector<Block>, myComparator> > &pq, int senderId, vector<int> &validatedNodes, int numValidatedNodes, Block &block){
 		if(numNodes == numValidatedNodes){
 			return true;
 		}

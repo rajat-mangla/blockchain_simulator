@@ -5,7 +5,9 @@
 #include "region.h"
 #include "node.h"
 
-void displayList(vector<Block> list, vector<Region> regions, vector<Node> nodes);
+void displayListInfo(vector<Block> list, vector<Region> regions, vector<Node> nodes);
+
+void displayOtherInfo(int numStaleBlocks, double simulationTime, double actualTime);
 
 #endif // MAIN
 

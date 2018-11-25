@@ -156,7 +156,7 @@
      <enum>QFrame::Raised</enum>
     </property>
    </widget>
-   <widget class="QLineEdit" name="blockSize_2">
+   <widget class="QLineEdit" name="blockInterval">
     <property name="geometry">
      <rect>
       <x>230</x>
@@ -169,7 +169,7 @@
      <set>Qt::ImhDigitsOnly</set>
     </property>
    </widget>
-   <widget class="QLabel" name="blockInterval">
+   <widget class="QLabel" name="blockIntervalLabel">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -195,8 +195,8 @@
    <zorder>numBlocksLabel</zorder>
    <zorder>blockSize</zorder>
    <zorder>blockSizeLabel</zorder>
-   <zorder>blockSize_2</zorder>
    <zorder>blockInterval</zorder>
+   <zorder>blockIntervalLabel</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

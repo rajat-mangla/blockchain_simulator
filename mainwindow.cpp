@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "simulator.cpp"
 #include "displaychain.h"
-#include "time.h"
 #include <iostream>
 using namespace std;
 
@@ -20,12 +19,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Simulate_clicked()
 {
-    clock_t tStart = clock();
     int numNodes = 100;
     int numMiners = 100;
     int numBlocks = 100;
-    int blockSize = 100;
-    double blockInterval = 10;
+    int blockSize = 8;   // in Mbits/sec
+    double blockInterval = 10; // in sec
 
     /*numNodes = ui->numNodes->text().toInt();
 
@@ -34,10 +32,10 @@ void MainWindow::on_Simulate_clicked()
     numBlocks = ui->numBlocks->text().toInt();
 
     blockSize = ui->blockSize->text().toInt();
-*/
-    Simulator simulator(numNodes, numMiners, numBlocks, blockSize, blockInterval);
-    this->close();
-    simulator.run();
 
-    cout<<"\n Time taken: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC <<"\n";
+    blockInterval = ui->blockInterval->text().toDouble();*/
+
+    Simulator simulator(numNodes, numMiners, numBlocks, blockSize, blockInterval);
+    //this->close();
+    simulator.run();
 }

@@ -9,14 +9,19 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.show();
 
+    chainList = new displayChain();
+
+    w.show();
     return a.exec();
 }
 
-void displayList(vector<Block> list, vector<Region> regions, vector<Node> nodes){
-  chainList = new displayChain();
+void displayListInfo(vector<Block> list, vector<Region> regions, vector<Node> nodes){
   chainList->show();
   chainList->displayBlockDetails(list);
   chainList->displayMinerDetails(list, regions, nodes);
+}
+
+void displayOtherInfo(int numStaleBlocks, double simulationTime, double actualTime){
+    chainList->displayStatistics(numStaleBlocks,simulationTime, actualTime);
 }
