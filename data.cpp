@@ -1,10 +1,22 @@
 #include <iostream>
 using namespace std;
 
-#define NUM_REGIONS 6
+#define NUM_REGIONS 127
 
+/*
 string regionNames[] = {"North America", "Europe", "South America", "Japan", "Australia", "Asia Pacific"};
 double regionDownloadSpeeds[] = {41.68, 21.29, 9.89, 6.9, 16, 14.6};
 double regionUploadSpeeds[] = {6.74, 6.72, 2.2, 1.7, 6.1, 6.53};
 int nodeProportion[] = {36, 51, 3, 2, 2, 6};
 int minerProportion[] = {24, 6, 0, 0, 0, 70};
+*/
+
+string regionNames[] = {"Singapore", "Australia", "Uruguay", "Serbia", "Austria", "United Arab Emirates", "Qatar", "Belarus", "Trinidad and Tobago", "Ukraine", "Czech Republic", "Russia", "Slovenia", "Italy", "Estonia", "Venezuela", "Afghanistan", "Mozambique", "Lebanon", "Nicaragua", "Libya", "Egypt", "Honduras", "Pakistan", "Tunisia", "Suriname", "El Salvador", "Syria", "Republic of the Union of Myanmar", "Bolivia", "Uzbekistan", "Guatemala", "Ethiopia", "Nigeria", "Namibia", "Zimbabwe", "Maldives", "Iran", "Belize", "Angola", "Tanzania", "Ecuador", "Morocco", "Mauritius", "Costa Rica", "Iraq", "Cambodia", "Dominican Republic", "Azerbaijan", "Cote d'Ivoire", "Kenya", "Indonesia", "Colombia", "Nepal", "Bahrain", "Brunei", "Bangladesh", "Laos", "Philippines", "Turkey", "Albania", "Greece", "Georgia", "Guyana", "Kyrgyzstan", "Cyprus", "Oman", "Kuwait", "Sri Lanka", "Jamaica", "Armenia", "Argentina", "Mongolia", "Macedonia", "Mexico", "Bosnia and Herzegovina", "Ghana", "Peru", "Jordan", "The Bahamas", "India", "Brazil", "Vietnam", "Saudi Arabia", "Kazakhstan", "Croatia", "Montenegro", "Panama", "Madagascar", "Finland", "Moldova", "Slovakia", "Chile", "Bulgaria", "Malta", "Poland", "Thailand", "Latvia", "United Kingdom", "Ireland", "Taiwan", "Belgium", "Malaysia", "Germany", "Portugal", "Israel", "Lithuania", "Barbados", "New Zealand", "China", "Netherlands", "Canada", "Japan", "Norway", "Macau (SAR)", "Denmark", "France", "Spain", "Switzerland", "Luxembourg", "Sweden", "South Korea", "United States", "Hungary", "Hong Kong (SAR)", "Romania", "Iceland"};
+
+double regionDownloadSpeeds[] = {181.47, 32.24, 36.42, 34.73, 37.27, 34.85, 34.14, 39.51, 42.34, 40.72, 43.24, 42.97, 44.48, 42.61, 46.23, 4.08, 5.74, 6.10, 6.29, 6.77, 6.50, 6.51, 7.61, 7.78, 8.19, 8.19, 8.27, 8.89, 8.82, 8.33, 9.28, 9.28, 11.04, 10.34, 11.17, 11.34, 11.82, 12.51, 13.36, 13.25, 13.40, 13.46, 13.59, 13.86, 14.06, 14.88, 14.77, 14.99, 15.26, 15.15, 15.11, 15.62, 15.97, 17.01, 17.20, 16.15, 17.57, 18.55, 19.10, 18.48, 17.69, 19.59, 19.62, 19.91, 20.14, 21.25, 21.02, 20.71, 21.89, 22.17, 23.47, 22.95, 23.77, 24.21, 24.39, 23.98, 25.11, 25.48, 26.13, 26.07, 25.80, 27.26, 26.72, 28.66, 28.84, 28.67, 31.07, 46.43, 29.64, 50.56, 46.82, 49.64, 52.32, 50.74, 56.64, 55.77, 52.98, 52.39, 53.95, 54.44, 61.76, 61.15, 61.97, 61.98, 70.94, 74.52, 72.67, 67.02, 84.35, 81.35, 86.33, 86.92, 87.97, 95.35, 93.30, 88.16, 97.12, 101.58, 101.90, 101.91, 103.37, 112.73, 104.43, 105.74, 131.05, 129.43, 153.26};
+
+double regionUploadSpeeds[] = {189.15, 12.48, 10.54, 7.68, 11.61, 12.52, 18.35, 33.76, 23.00, 41.13, 22.99, 43.73, 16.17, 15.21, 30.94, 1.71, 6.96, 4.74, 3.75, 3.42, 5.70, 1.66, 4.48, 5.76, 3.61, 2.87, 3.09, 9.73, 9.58, 3.56, 9.23, 4.14, 14.18, 8.87, 10.22, 10.24, 8.63, 5.71, 10.82, 5.34, 12.50, 10.64, 2.84, 6.82, 3.57, 14.91, 17.23, 4.18, 14.89, 7.55, 10.18, 8.68, 6.69, 15.36, 5.76, 11.17, 19.10, 17.68, 17.46, 5.78, 9.25, 3.75, 19.87, 8.71, 20.01, 5.16, 7.31, 18.88, 9.62, 12.19, 21.01, 5.30, 23.36, 12.41, 9.84, 5.92, 21.37, 5.28, 19.75, 9.65, 21.37, 12.48, 26.63, 12.19, 28.53, 12.11, 5.52, 8.71, 23.95, 21.94, 40.04, 17.74, 11.53, 36.72, 9.78, 19.11, 29.37, 50.54, 12.67, 18.77, 37.49, 13.50, 44.40, 15.36, 38.31, 16.21, 64.74, 37.69, 47.41, 27.16, 41.97, 36.75, 97.69, 71.79, 85.63, 64.21, 50.30, 84.65, 64.40, 65.07, 69.95, 99.24, 36.01, 42.46, 133.95, 96.83, 156.64};
+
+int nodeProportion[] = {2, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 2, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 18, 0, 0, 0, 0, 0, 5, 4, 4, 2, 0, 0, 0, 6, 0, 1, 0, 0, 1, 24, 0, 1, 0, 0};
+
+int minerProportion[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 2};
