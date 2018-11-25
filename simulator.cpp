@@ -126,7 +126,7 @@ public:
 
 	void run(){
 		vector<Block> inputBlocks;
-		int numTransactionsInBlock = ceil(1.0*blockSize/(TRANSACTION_SIZE*numBlocks));
+        int numTransactionsInBlock = ceil(1.0*blockSize/(TRANSACTION_SIZE*numBlocks));
 		for(int i = 0; i < numBlocks; i++){
 			inputBlocks.push_back(Block(i, TRANSACTION_SIZE*numTransactionsInBlock));
 			for(int j = 0; j < numTransactionsInBlock; j++){
@@ -256,6 +256,7 @@ public:
 		
 		cout << "\nBlockchain" << "\n";
 		cout << "Block Id\tMiner Id\tTime Created\n";
+
 		for(int i = 0; i < blockchain.size(); i++){
 			cout << blockchain[i].getId() << "\t\t" << blockchain[i].getMinerId() << "\t\t" << blockchain[i].getTimeCreated() << "\n";
 		}
