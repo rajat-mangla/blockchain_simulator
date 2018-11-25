@@ -1,5 +1,5 @@
 #include "block.h"
-#include "transaction.cpp"
+#include "transaction.h"
 
 Block::Block(int id, int blockSize){
 	this->id = id;
