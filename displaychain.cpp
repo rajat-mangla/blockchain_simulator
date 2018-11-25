@@ -1,6 +1,6 @@
 #include "displaychain.h"
 #include "ui_displaychain.h"
-#include "blockinfo.h"
+#include "blockWidget.h"
 using namespace std;
 
 displayChain::displayChain(QWidget *parent) :
@@ -18,8 +18,8 @@ displayChain::~displayChain()
 void displayChain::displayList(vector<Block> list){
     for (int i=0;i<list.size();i++){
 
-        blockInfo* customCard = new blockInfo;
-        customCard->displayBlockInfo(list[i]);
+        blockWidget* customCard = new blockWidget;
+        customCard->displayBlockWidget(list[i]);
         QListWidgetItem* tempItem = new QListWidgetItem();
 
         ui->blockList->addItem(tempItem);

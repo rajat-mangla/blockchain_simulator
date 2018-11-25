@@ -20,7 +20,7 @@ SOURCES += main.cpp\
     node.cpp \
     data.cpp \
     displaychain.cpp \
-    blockinfo.cpp
+    blockWidget.cpp
 
 HEADERS  += mainwindow.h \
     displaychain.h \
@@ -28,7 +28,7 @@ HEADERS  += mainwindow.h \
     main.h \
     node.h \
     region.h \
-    blockinfo.h
+    blockWidget.h
 
 FORMS    += mainwindow.ui \
     displaychain.ui \

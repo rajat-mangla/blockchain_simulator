@@ -8,14 +8,14 @@ namespace Ui {
 class blockInfo;
 }
 
-class blockInfo : public QWidget
+class blockWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit blockInfo(QWidget *parent = 0);
-    ~blockInfo();
-    void displayBlockInfo(Block block);
+    explicit blockWidget(QWidget *parent = 0);
+    ~blockWidget();
+    void displayBlockWidget(Block block);
 
 private:
     Ui::blockInfo *ui;

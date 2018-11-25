@@ -1,19 +1,19 @@
-#include "blockinfo.h"
+#include "blockWidget.h"
 #include "ui_blockinfo.h"
 
-blockInfo::blockInfo(QWidget *parent) :
+blockWidget::blockWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::blockInfo)
 {
     ui->setupUi(this);
 }
 
-blockInfo::~blockInfo()
+blockWidget::~blockWidget()
 {
     delete ui;
 }
 
-void blockInfo::displayBlockInfo(Block b){
+void blockWidget::displayBlockWidget(Block b){
 
     QString blockId = QString::fromStdString("Block Id: ");
     blockId.append(QString::number(b.getId()));
