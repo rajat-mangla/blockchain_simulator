@@ -1,58 +1,47 @@
+#include "block.h"
 #include "transaction.cpp"
-#include <vector>
 
-class Block{
-private:
-	int id;
-	int minerId;
-	int blockSize;
-	double timeCreated;
-	double timeReceived;
-	vector<Transaction> transactions;
+Block::Block(int id, int blockSize){
+	this->id = id;
+	this->blockSize = blockSize;
+}
 
-public:
-	Block(int id, int blockSize){
-		this->id = id;
-		this->blockSize = blockSize;
-	}
+int Block::getId(){
+	return this->id;
+}
 
-	int getId(){
-		return this->id;
-	}
+void Block::setMiner(int minerId){
+	this->minerId = minerId;
+}
 
-	void setMiner(int minerId){
-		this->minerId = minerId;
-	}
+int Block::getMinerId(){
+	return this->minerId;
+}
 
-	int getMinerId(){
-		return this->minerId;
-	}
+int Block::getBlockSize(){
+	return this->blockSize;
+}
 
-	int getBlockSize(){
-		return this->blockSize;
-	}
+void Block::setTimeCreated(double timeCreated){
+	this->timeCreated = timeCreated;
+}
 
-	void setTimeCreated(double timeCreated){
-		this->timeCreated = timeCreated;
-	}
+double Block::getTimeCreated(){
+	return this->timeCreated;
+}
 
-	double getTimeCreated(){
-		return this->timeCreated;
-	}
+void Block::setTimeReceived(double timeReceived){
+	this->timeReceived = timeReceived;
+}
 
-	void setTimeReceived(double timeReceived){
-		this->timeReceived = timeReceived;
-	}
+double Block::getTimeReceived(){
+	return this->timeReceived;
+}
 
-	double getTimeReceived(){
-		return this->timeReceived;
-	}
+void Block::addTransaction(Transaction transaction){
+	this->transactions.push_back(transaction);
+}
 
-	void addTransaction(Transaction transaction){
-		this->transactions.push_back(transaction);
-	}
-
-	vector<Transaction> getTransactions(){
-		return this->transactions;
-	}
-};
+vector<Transaction> Block::getTransactions(){
+	return this->transactions;
+}

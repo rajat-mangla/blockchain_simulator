@@ -1,23 +1,21 @@
-#include "simulator.cpp"
+#include "mainwindow.h"
+#include <QApplication>
+#include "displaychain.h"
+using namespace std;
 
-int main(){
-	int numNodes = 10;
-	int numMiners = 4;
-	int numBlocks = 10;
-	int blockSize = 100;
-	double blockInterval = 1;
-	/*
-	cout << "Number of Nodes : ";
-	cin >> numNodes;
-	cout << "Number of Miners : ";
-	cin >> numMiners;
-	cout << "Number of Blocks : ";
-	cin >> numBlocks;
-	cout << "Size of Block : ";
-	cin >> blockSize;
-	cout << "Block Interval : ";
-	cin >> blockInterval;
-	*/
-	Simulator simulator(numNodes, numMiners, numBlocks, blockSize, blockInterval);
-	simulator.run();
+displayChain* chainList;
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+
+    return a.exec();
+}
+
+void displayList(vector<Block> list){
+  chainList = new displayChain();
+  chainList->show();
+  chainList->displayList(list);
 }

@@ -7,6 +7,8 @@
 #include <map>
 #include <stdlib.h>
 #include <iomanip>
+#include "displaychain.h"
+#include "main.h"
 #include <math.h>
 using namespace std;
 
@@ -249,6 +251,8 @@ public:
 			}
 			staleBlocks.clear();
 		}
+		
+		displayList(blockchain);
 		
 		cout << "\nBlockchain" << "\n";
 		cout << "Block Id\tMiner Id\tTime Created\n";
