@@ -1,5 +1,7 @@
 #ifndef REGION
 #define REGION
+#include <iostream>
+using namespace std;
 
 class Region{
 private:

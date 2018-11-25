@@ -1,6 +1,7 @@
 #include "data.cpp"
-#include "node.cpp"
-#include "region.cpp"
+#include "block.h"
+#include "node.h"
+#include "region.h"
 #include <iostream>
 #include <queue>
 #include <map>
@@ -8,8 +9,10 @@
 #include <iomanip>
 #include "displaychain.h"
 #include "main.h"
-
+#include <math.h>
 using namespace std;
+
+#define TRANSACTION_SIZE 10
 
 class myComparator{
 public:
@@ -122,96 +125,143 @@ public:
 	}
 
 	void run(){
-		vector< priority_queue<Block, vector<Block>, myComparator> > pq(numNodes);
-		int numValidatedNodes;
-		double time = 0.0;
+		vector<Block> inputBlocks;
+        int numTransactionsInBlock = ceil(1.0*blockSize/(TRANSACTION_SIZE*numBlocks));
 		for(int i = 0; i < numBlocks; i++){
-			pair<int, int> miner = calculateMiner();
-			int currBlockSize = 1+rand()%blockSize;
-			time += currBlockSize/nodes[miner.first].getDownloadSpeed();
-			time += calculateMiningTime(miner.second);
-			vector<int> validatedNodes(numNodes, 0);
-			validatedNodes[miner.first] = 1;
-			numValidatedNodes = 1;
-			Block b(i-1, miner.first, currBlockSize, time);
-			b.setTimeReceived(time);
-			pq[miner.first].push(b);
-			broadcast(pq, miner.first, validatedNodes, numValidatedNodes, b);
-			time = max(time, (i+1)*blockInterval);
+			inputBlocks.push_back(Block(i, TRANSACTION_SIZE*numTransactionsInBlock));
+			for(int j = 0; j < numTransactionsInBlock; j++){
+				string from = "";
+				from += char('A' + rand()%26);
+				string to = "";
+				to += char('A' + rand()%26);
+				while(to == from){
+					to = "";
+					to += char('A' + rand()%26);
+				}
+				inputBlocks[i].addTransaction(Transaction(from, to, 1+rand()%100));
+			}
 		}
 
-        /*for(int i = 0; i < numNodes; i++){
-			showpq(pq[i]);
-        }*/
+		vector<int> dependency(numBlocks, -1);
+		for(int i = 1; i < numBlocks; i++){
+			for(int j = i-1; j >= 0; j--){
+				if(dependent(inputBlocks[i].getTransactions(), inputBlocks[j].getTransactions())){
+					dependency[i] = j;
+					break;
+				}
+			}
+		}
 
-		int cnt = numNodes*numBlocks;
-		while(cnt > 0){
-			vector< pair<int, int> > blocks;
-			map<int, int> mp;
-			int blockId = -1, maxOccurence = -1;
-			for(int j = 0; j < numNodes; j++){
-				if(pq[j].empty()){
-					continue;
-				}
-				Block b = pq[j].top();
-				mp[b.getId()]++;
-				if(maxOccurence < mp[b.getId()]){
-					maxOccurence = mp[b.getId()];
-					blockId = b.getId();
-				}
-				blocks.push_back(make_pair(b.getId(), b.getTimeReceived()));
+		for(int i = 0; i < numBlocks; i++){
+			cout << "Block " << inputBlocks[i].getId() << ":\n";
+			vector<Transaction> t = inputBlocks[i].getTransactions();
+			for(int j = 0; j < t.size(); j++){
+				cout << t[j].getFrom() << " gives " << t[j].getAmount() << " to " << t[j].getTo() << "\n";
 			}
-			int maxTime = -1;
-			for(int j = 0; j < blocks.size(); j++){
-				if(blocks[j].first == blockId && maxTime < blocks[j].second){
-					maxTime = blocks[j].second;
-				}
+			cout << "\n";
+		}
+		for(int i = 0; i < dependency.size(); i++){
+			cout << i << "\t";
+		}
+		cout << "\n";
+		for(int i = 0; i < dependency.size(); i++){
+			cout << dependency[i] << "\t";
+		}
+		cout << "\n";
+
+		vector< priority_queue<Block, vector<Block>, myComparator> > pq(numNodes);
+		int numValidatedNodes, numStaleBlocks = 0, indexx = 0;
+		map<int, bool> mpb;
+		mpb[-1] = 1;
+		double time = 0.0;
+		while(!inputBlocks.empty()){
+			for(int i = 0; i < inputBlocks.size(); i++){
+				pair<int, int> miner = calculateMiner();
+				int currBlockSize = inputBlocks[i].getBlockSize();
+				time += currBlockSize/nodes[miner.first].getDownloadSpeed();
+				time += calculateMiningTime(miner.second);
+				vector<int> validatedNodes(numNodes, 0);
+				validatedNodes[miner.first] = 1;
+				numValidatedNodes = 1;
+				inputBlocks[i].setMiner(miner.first);
+				inputBlocks[i].setTimeCreated(time);
+				inputBlocks[i].setTimeReceived(time);
+				pq[miner.first].push(inputBlocks[i]);
+				broadcast(pq, miner.first, validatedNodes, numValidatedNodes, inputBlocks[i]);
+				time = max(time, (indexx++)*blockInterval);
 			}
-			for(int j = 0; j < numNodes; j++){
-				if(!pq[j].empty()){
+
+			int cnt = numNodes*inputBlocks.size();
+			while(cnt > 0){
+				vector< pair<int, int> > blocks;
+				map<int, int> mp;
+				int blockId = -1, maxOccurence = -1;
+				for(int j = 0; j < numNodes; j++){
+					if(pq[j].empty()){
+						continue;
+					}
 					Block b = pq[j].top();
-					if(b.getId() == blockId && !inBlockchain(b) && !isStale(b)){
-						blockchain.push_back(b);
-						break;
+					mp[b.getId()]++;
+					if(maxOccurence < mp[b.getId()]){
+						maxOccurence = mp[b.getId()];
+						blockId = b.getId();
+					}
+					blocks.push_back(make_pair(b.getId(), b.getTimeReceived()));
+				}
+				int maxTime = -1;
+				for(int j = 0; j < blocks.size(); j++){
+					if(blocks[j].first == blockId && maxTime < blocks[j].second){
+						maxTime = blocks[j].second;
+					}
+				}
+				for(int j = 0; j < numNodes; j++){
+					if(!pq[j].empty()){
+						Block b = pq[j].top();
+						if(b.getId() == blockId && mpb[dependency[b.getId()]] && !inBlockchain(b) && !isStale(b)){
+							blockchain.push_back(b);
+							mpb[b.getId()] = 1;
+							break;
+						}
+					}
+				}
+				for(int j = 0; j < numNodes; j++){
+					if(pq[j].empty()){
+						continue;
+					}
+					Block b = pq[j].top();
+					if(isStale(b) || inBlockchain(b)){
+						pq[j].pop();
+						cnt--;
+						continue;
+					}
+					if(b.getTimeReceived() <= maxTime){
+						pq[j].pop();
+						cnt--;
+						if(b.getMinerId() == j){
+							staleBlocks.push_back(b);
+						}
 					}
 				}
 			}
-			for(int j = 0; j < numNodes; j++){
-				if(pq[j].empty()){
-					continue;
-				}
-				Block b = pq[j].top();
-				if(isStale(b) || inBlockchain(b)){
-					pq[j].pop();
-					cnt--;
-					continue;
-				}
-				if(b.getTimeReceived() <= maxTime){
-					pq[j].pop();
-					cnt--;
-					if(b.getMinerId() == j){
-						staleBlocks.push_back(b);
-					}
-				}
+
+			numStaleBlocks += staleBlocks.size();
+			inputBlocks.clear();
+			for(int i = 0; i < staleBlocks.size(); i++){
+				inputBlocks.push_back(staleBlocks[i]);
 			}
+			staleBlocks.clear();
 		}
-        displayList(blockchain);
+		
+		displayList(blockchain);
+		
+		cout << "\nBlockchain" << "\n";
+		cout << "Block Id\tMiner Id\tTime Created\n";
 
-
-        /*
-		cout << "\nBlockchain: " << "\n";
 		for(int i = 0; i < blockchain.size(); i++){
-			cout << blockchain[i].getId() << " " << blockchain[i].getMinerId() << "\n";
+			cout << blockchain[i].getId() << "\t\t" << blockchain[i].getMinerId() << "\t\t" << blockchain[i].getTimeCreated() << "\n";
 		}
 
-		cout << "\nStale Blocks: " << "\n";
-		for(int i = 0; i < staleBlocks.size(); i++){
-			cout << staleBlocks[i].getId() << " " << staleBlocks[i].getMinerId() << "\n";
-		}
-		*/
-		cout << "\n# of blocks in main chain: " << blockchain.size() << "\n";
-		cout << "\n# of stale blocks: " << staleBlocks.size() << "\n";
-
+		cout << "\nNumber of stale blocks are " << numStaleBlocks << "\n";
 	}
 
 	bool broadcast(vector< priority_queue<Block, vector<Block>, myComparator> > &pq, int senderId, vector<int> &validatedNodes, int numValidatedNodes, Block block){
@@ -270,15 +320,12 @@ public:
 	}
 
 	void showpq(priority_queue<Block, vector<Block>, myComparator> pq){
-        vector<Block> temp;
-        while(!pq.empty()){
+	    while(!pq.empty()){
 	    	Block b = pq.top();
 	    	pq.pop();
-            temp.push_back(b);
-            //cout << setw(10) << b.getTimeReceived() << "(" << b.getId() << ")";
+	        cout << setw(10) << b.getTimeReceived() << "(" << b.getId() << ")";
 	    }
-        displayList(temp);
-        //cout << '\n';
+	    cout << '\n';
 	}
 
 	bool isStale(Block b){
@@ -294,6 +341,26 @@ public:
 		for(int i = 0; i < blockchain.size(); i++){
 			if(b.getId() == blockchain[i].getId()){
 				return true;
+			}
+		}
+		return false;
+	}
+
+	bool dependent(vector<Transaction> t1, vector<Transaction> t2){
+		for(int i = 0; i < t1.size(); i++){
+			for(int j = 0; j < t2.size(); j++){
+				if(t1[i].getFrom() == t2[j].getFrom()){
+					return true;
+				}
+				if(t1[i].getFrom() == t2[j].getTo()){
+					return true;
+				}
+				if(t1[i].getTo() == t2[j].getFrom()){
+					return true;
+				}
+				if(t1[i].getTo() == t2[j].getTo()){
+					return true;
+				}
 			}
 		}
 		return false;

@@ -1,43 +1,47 @@
 #include "block.h"
+#include "transaction.h"
 
-Block::Block(int parentId, int minerId, int blockSize, double timeCreated){
-    this->id = totalBlocks++;
-    this->parentId = parentId;
-    this->minerId = minerId;
-    this->blockSize = blockSize;
-    this->timeCreated = timeCreated;
+Block::Block(int id, int blockSize){
+	this->id = id;
+	this->blockSize = blockSize;
 }
 
 int Block::getId(){
-    return this->id;
+	return this->id;
 }
 
-int Block::getParentId(){
-    return this->parentId;
+void Block::setMiner(int minerId){
+	this->minerId = minerId;
 }
 
 int Block::getMinerId(){
-    return this->minerId;
+	return this->minerId;
 }
 
 int Block::getBlockSize(){
-    return this->blockSize;
-}
-
-double Block::getTimeCreated(){
-    return this->timeCreated;
+	return this->blockSize;
 }
 
 void Block::setTimeCreated(double timeCreated){
-    this->timeCreated = timeCreated;
+	this->timeCreated = timeCreated;
 }
 
-double Block::getTimeReceived(){
-    return this->timeReceived;
+double Block::getTimeCreated(){
+	return this->timeCreated;
 }
 
 void Block::setTimeReceived(double timeReceived){
-    this->timeReceived = timeReceived;
+	this->timeReceived = timeReceived;
 }
 
-int Block::totalBlocks = 0;
+double Block::getTimeReceived(){
+	return this->timeReceived;
+}
+
+void Block::addTransaction(Transaction transaction){
+	this->transactions.push_back(transaction);
+}
+
+vector<Transaction> Block::getTransactions(){
+	return this->transactions;
+}
