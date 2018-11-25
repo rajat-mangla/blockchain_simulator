@@ -1,28 +1,27 @@
+#include "transaction.cpp"
+#include <vector>
+
 class Block{
 private:
-	static int totalBlocks;
 	int id;
-	int parentId;
 	int minerId;
 	int blockSize;
 	double timeCreated;
 	double timeReceived;
+	vector<Transaction> transactions;
 
 public:
-	Block(int parentId, int minerId, int blockSize, double timeCreated){
-		this->id = totalBlocks++;
-		this->parentId = parentId;
-		this->minerId = minerId;
+	Block(int id, int blockSize){
+		this->id = id;
 		this->blockSize = blockSize;
-		this->timeCreated = timeCreated;
 	}
 
 	int getId(){
 		return this->id;
 	}
 
-	int getParentId(){
-		return this->parentId;
+	void setMiner(int minerId){
+		this->minerId = minerId;
 	}
 
 	int getMinerId(){
@@ -33,21 +32,27 @@ public:
 		return this->blockSize;
 	}
 
+	void setTimeCreated(double timeCreated){
+		this->timeCreated = timeCreated;
+	}
+
 	double getTimeCreated(){
 		return this->timeCreated;
 	}
 
-	void setTimeCreated(double timeCreated){
-		this->timeCreated = timeCreated;
+	void setTimeReceived(double timeReceived){
+		this->timeReceived = timeReceived;
 	}
 
 	double getTimeReceived(){
 		return this->timeReceived;
 	}
 
-	void setTimeReceived(double timeReceived){
-		this->timeReceived = timeReceived;
+	void addTransaction(Transaction transaction){
+		this->transactions.push_back(transaction);
+	}
+
+	vector<Transaction> getTransactions(){
+		return this->transactions;
 	}
 };
-
-int Block::totalBlocks = 0;
