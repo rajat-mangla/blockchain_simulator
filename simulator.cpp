@@ -1,7 +1,7 @@
 #include "data.cpp"
-#include "block.cpp"
-#include "node.cpp"
-#include "region.cpp"
+#include "block.h"
+#include "node.h"
+#include "region.h"
 #include <iostream>
 #include <queue>
 #include <map>
