@@ -17,5 +17,6 @@ int main(int argc, char *argv[])
 void displayList(vector<Block> list){
   chainList = new displayChain();
   chainList->show();
-  chainList->displayList(list);
+  chainList->displayBlockDetails(list);
+  chainList->displayMinerDetails(list);
 }

@@ -18,7 +18,8 @@ class displayChain : public QWidget
 public:
     explicit displayChain(QWidget *parent = 0);
     ~displayChain();
-    void displayList(vector<Block> list);
+    void displayBlockDetails(vector<Block> list);
+    void displayMinerDetails(vector<Block> list);
 
 private:
     Ui::displayChain *ui;

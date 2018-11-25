@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="2">
-    <widget class="QListWidget" name="listWidget">
+    <widget class="QListWidget" name="minersListWidget">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -85,7 +85,7 @@
     </spacer>
    </item>
    <item row="2" column="4">
-    <widget class="QListWidget" name="listWidget_2">
+    <widget class="QListWidget" name="regionListWidget">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
        <horstretch>0</horstretch>

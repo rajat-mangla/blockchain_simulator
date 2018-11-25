@@ -196,6 +196,8 @@ public:
 			}
 		}
         displayList(blockchain);
+
+
         /*
 		cout << "\nBlockchain: " << "\n";
 		for(int i = 0; i < blockchain.size(); i++){

@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     node.cpp \
     data.cpp \
     displaychain.cpp \
-    blockWidget.cpp
+    blockWidget.cpp \
+    minerwidget.cpp
 
 HEADERS  += mainwindow.h \
     displaychain.h \
@@ -28,10 +29,12 @@ HEADERS  += mainwindow.h \
     main.h \
     node.h \
     region.h \
-    blockWidget.h
+    blockWidget.h \
+    minerwidget.h
 
 FORMS    += mainwindow.ui \
     displaychain.ui \
-    blockinfo.ui
+    minerwidget.ui \
+    blockWidget.ui
 
 CONFIG += c++11
