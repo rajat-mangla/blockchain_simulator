@@ -1,9 +1,9 @@
 #include "blockWidget.h"
-#include "ui_blockinfo.h"
+#include "ui_blockWidget.h"
 
 blockWidget::blockWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::blockInfo)
+    ui(new Ui::blockWidget)
 {
     ui->setupUi(this);
 }
@@ -26,5 +26,5 @@ void blockWidget::displayBlockWidget(Block b){
 
     ui->blockD->setText(blockId);
     ui->timeD->setText(blockTime);
-    ui->mineD->setText(minerId);
+    ui->minerD->setText(minerId);
 }

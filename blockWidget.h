@@ -5,7 +5,7 @@
 #include "block.h"
 
 namespace Ui {
-class blockInfo;
+class blockWidget;
 }
 
 class blockWidget : public QWidget
@@ -18,7 +18,7 @@ public:
     void displayBlockWidget(Block block);
 
 private:
-    Ui::blockInfo *ui;
+    Ui::blockWidget *ui;
 };
 
 #endif // BLOCKINFO_H
