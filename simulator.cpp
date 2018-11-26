@@ -154,7 +154,7 @@ public:
 			}
 		}
 
-        /*for(int i = 0; i < numBlocks; i++){
+        for(int i = 0; i < numBlocks; i++){
 			cout << "Block " << inputBlocks[i].getId() << ":\n";
 			vector<Transaction> t = inputBlocks[i].getTransactions();
 			for(int j = 0; j < t.size(); j++){
@@ -162,6 +162,7 @@ public:
 			}
 			cout << "\n";
 		}
+        /*
 		for(int i = 0; i < dependency.size(); i++){
 			cout << i << "\t";
 		}
@@ -258,6 +259,8 @@ public:
         cout<<"\n Time taken: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC <<"\n";
         displayListInfo(blockchain, regions, nodes);
         displayOtherInfo(numStaleBlocks, (double)(clock() - tStart)/CLOCKS_PER_SEC, blockchain[blockchain.size()-1].getTimeReceived());
+
+        displayTransactionListInfo(blockchain);
 
 		cout << "\nBlockchain" << "\n";
 		cout << "Block Id\tMiner Id\tTime Created\n";

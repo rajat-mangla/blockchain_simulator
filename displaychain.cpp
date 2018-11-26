@@ -26,6 +26,7 @@ void displayChain::displayBlockDetails(vector<Block> list){
         ui->blockList->addItem(tempItem);
 
         tempItem->setSizeHint(customWidget->size());
+        tempItem->setTextAlignment(Qt::AlignCenter);
         ui->blockList->setItemWidget(tempItem, customWidget);
     }
 }

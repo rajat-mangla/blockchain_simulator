@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     displaychain.cpp \
     blockWidget.cpp \
     minerwidget.cpp \
-    transaction.cpp
+    transaction.cpp \
+    transactiondisplay.cpp
 
 HEADERS  += mainwindow.h \
     displaychain.h \
@@ -32,11 +33,13 @@ HEADERS  += mainwindow.h \
     region.h \
     blockWidget.h \
     minerwidget.h \
-    transaction.h
+    transaction.h \
+    transactiondisplay.h
 
 FORMS    += mainwindow.ui \
     displaychain.ui \
     minerwidget.ui \
-    blockWidget.ui
+    blockWidget.ui \
+    transactiondisplay.ui
 
 CONFIG += c++11
