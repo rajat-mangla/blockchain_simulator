@@ -10,6 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->numBlocks->setValidator(new QIntValidator(1,10000,this));
+    ui->numNodes->setValidator(new QIntValidator(1,10000,this));
+    ui->numMiners->setValidator(new QIntValidator(1,10000,this));
+    ui->blockSize->setValidator(new QIntValidator(1,32,this));
+    ui->blockInterval->setValidator(new QDoubleValidator(this));
 }
 
 MainWindow::~MainWindow()
@@ -25,7 +30,7 @@ void MainWindow::on_Simulate_clicked()
     int blockSize = 8;   // in Mbits/sec
     double blockInterval = 10; // in sec
 
-    /*numNodes = ui->numNodes->text().toInt();
+    numNodes = ui->numNodes->text().toInt();
 
     numMiners = ui->numMiners->text().toInt();
 
@@ -33,9 +38,18 @@ void MainWindow::on_Simulate_clicked()
 
     blockSize = ui->blockSize->text().toInt();
 
-    blockInterval = ui->blockInterval->text().toDouble();*/
+    blockInterval = ui->blockInterval->text().toDouble();
 
-    Simulator simulator(numNodes, numMiners, numBlocks, blockSize, blockInterval);
-    //this->close();
-    simulator.run();
+    if ((numNodes > 0 && numMiners > 0 && numBlocks > 0 && blockSize > 0 && blockInterval > 0) &&
+            numMiners <= numNodes){
+
+        ui->errorLabel->setText("<font color='green'>Blockchain Simulation</font>");
+
+        Simulator simulator(numNodes, numMiners, numBlocks, blockSize, blockInterval);
+        //this->close();
+        simulator.run();
+    }
+    else{
+        ui->errorLabel->setText("<font color='red'>Please provide correct inputs</font>");
+    }
 }
