@@ -128,7 +128,7 @@ public:
 	void run(){
         clock_t tStart = clock();
 		vector<Block> inputBlocks;
-        int numTransactionsInBlock = ceil(1.0*blockSize/(TRANSACTION_SIZE*numBlocks));
+        int numTransactionsInBlock = floor(1.0*blockSize/(TRANSACTION_SIZE));
 		for(int i = 0; i < numBlocks; i++){
 			inputBlocks.push_back(Block(i, TRANSACTION_SIZE*numTransactionsInBlock));
 			for(int j = 0; j < numTransactionsInBlock; j++){
@@ -258,7 +258,12 @@ public:
 
         cout<<"\n Time taken: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC <<"\n";
         displayListInfo(blockchain, regions, nodes);
-        displayOtherInfo(numStaleBlocks, (double)(clock() - tStart)/CLOCKS_PER_SEC, blockchain[blockchain.size()-1].getTimeReceived());
+        double averageTime = 0.0;
+        for(int i=0;i<blockchain.size();i++){
+            averageTime += blockchain[i].getTimeCreated();
+        }
+        averageTime /= numBlocks;
+        displayOtherInfo(numStaleBlocks, (double)(clock() - tStart)/CLOCKS_PER_SEC, averageTime);
 
         displayTransactionListInfo(blockchain);
 
@@ -324,7 +329,7 @@ public:
 	}
 
 	double calculateMiningTime(int power){
-		return 1.0/power;
+        return (1.0*600)/power;
 	}
 
     /*void showpq(priority_queue<Block, vector<Block>, myComparator> pq){

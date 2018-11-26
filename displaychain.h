@@ -21,7 +21,7 @@ public:
     ~displayChain();
     void displayBlockDetails(vector<Block> list);
     void displayMinerDetails(vector<Block> blockchain, vector<Region> regions, vector<Node> nodes);
-    void displayStatistics(int staleBlocks, double simulationTime, double actualTime);
+    void displayStatistics(int staleBlocks, double simulationTime, double averageTime);
 
 private:
     Ui::displayChain *ui;

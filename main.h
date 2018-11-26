@@ -7,7 +7,7 @@
 
 void displayListInfo(vector<Block> list, vector<Region> regions, vector<Node> nodes);
 
-void displayOtherInfo(int numStaleBlocks, double simulationTime, double actualTime);
+void displayOtherInfo(int numStaleBlocks, double simulationTime, double averageTime);
 
 void displayTransactionListInfo(vector<Block> list);
 

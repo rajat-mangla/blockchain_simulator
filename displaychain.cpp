@@ -78,7 +78,7 @@ void displayChain::displayMinerDetails(vector<Block> blockchain, vector<Region> 
     }
 }
 
-void displayChain::displayStatistics(int staleBlocks, double simulationTime, double actualTime){
+void displayChain::displayStatistics(int staleBlocks, double simulationTime, double averageTime){
     ui->statisticsWidget->setColumnCount(2);
     ui->statisticsWidget->setColumnWidth(0,(this->width()*2)/3);
     ui->statisticsWidget->setColumnWidth(1,this->width()/3);
@@ -93,8 +93,8 @@ void displayChain::displayStatistics(int staleBlocks, double simulationTime, dou
     tempString.append(" Sec");
     ui->statisticsWidget->setItem(1,1,new QTableWidgetItem(tempString));
 
-    ui->statisticsWidget->setItem(2,0,new QTableWidgetItem("Actual Time taken to build Blockchain"));
-    tempString = QString::number(actualTime/60);
+    ui->statisticsWidget->setItem(2,0,new QTableWidgetItem("Average Time taken to mine a Block"));
+    tempString = QString::number(averageTime/(60));
     tempString.append(" Min");
     ui->statisticsWidget->setItem(2,1,new QTableWidgetItem(tempString));
 }

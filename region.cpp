@@ -7,7 +7,7 @@ Region::Region(string name, double maxDownloadSpeed, double maxUploadSpeed, int 
     this->maxUploadSpeed = maxUploadSpeed;
     this->nodeProportion = nodeProportion;
     this->minerProportion = minerProportion;
-    this->computationPower = minerProportion*100+100;
+    this->computationPower = minerProportion+1;
 }
 
 int Region::getId(){

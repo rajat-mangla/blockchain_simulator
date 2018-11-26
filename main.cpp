@@ -25,8 +25,8 @@ void displayListInfo(vector<Block> list, vector<Region> regions, vector<Node> no
   chainList->displayMinerDetails(list, regions, nodes);
 }
 
-void displayOtherInfo(int numStaleBlocks, double simulationTime, double actualTime){
-    chainList->displayStatistics(numStaleBlocks,simulationTime, actualTime);
+void displayOtherInfo(int numStaleBlocks, double simulationTime, double averageTime){
+    chainList->displayStatistics(numStaleBlocks,simulationTime, averageTime);
 }
 
 void displayTransactionListInfo(vector<Block> list){
